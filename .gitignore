@@ -104,3 +104,7 @@ dist
 .tern-port
 
 .clasp.json
+
+src/*.js
+
+.idea

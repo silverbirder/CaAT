@@ -4,8 +4,9 @@
   "description": "CaAT is the tools that Calculate the Assigned Time.",
   "main": "index.js",
   "scripts": {
-    "login":"clasp login",
+    "login": "clasp login",
     "init": "clasp create . --rootDir ./src",
+    "clone": "clasp clone",
     "push": "clasp push",
     "deploy": "clasp deploy",
     "test": "echo \"Error: no test specified\" && exit 1"

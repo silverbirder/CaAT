@@ -1,30 +1,12 @@
-import GroupMock, {ISchedule} from './groupMock';
-
-// const group: iGroup = new GroupMock(calendarURL);
-// const members: Array<string> = ['silverbirder'];
-// members.forEach((member: string) => {
-//     group.members.push(createMember(member));
-// });
-// group.members.forEach((member: any) => {
-//    member.schedules = member.fetchData();
-// });
+import MemberImpl from "./member/memberImpl";
+import IMember, {ISchedule} from "./member/iMember";
 
 function sample() {
-    const group: any = new GroupMock('bm6t9rsktjge8t6cehjd7kgqps@group.calendar.google.com');
-    group.ignore = /業務時間外/;
-    group.cutTimeRange = [{start: 12, end: 13}];
-    group.startDate = new Date('2020-01-05');
-    group.endDate = new Date('2020-01-10');
-    const schedules : Array<ISchedule> = group.fetchSchedules();
-    /*
-    * {
-    * "MON": [{assign: 1}],
-    * "TUE": [{assign: 2}],
-    * "WED": [{assign: 3}],
-    * "THU": [{assign: 4}],
-    * "FRI": [{assign: 5}],
-    * "SAT": [{assign: 4}],
-    * "SUN": [{assign: 3}],
-    * }
-    * */
+    const member: IMember = new MemberImpl('XXXX');
+    member.ignore = new RegExp('YYYY', 'ig');
+    member.everyMinutes = 15;
+    member.cutTimeRange = [{from: new Date('2020-01-18T12:00'), to: new Date('2020-01-18T13:00')}];
+    member.startDate = new Date('2020-01-18T09:00');
+    member.endDate = new Date('2020-01-18T18:00');
+    const schedules: Array<ISchedule> = member.fetchSchedules();
 }
