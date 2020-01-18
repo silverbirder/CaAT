@@ -2,6 +2,7 @@ import Calendar = GoogleAppsScript.Calendar.Calendar;
 import CalendarEvent = GoogleAppsScript.Calendar.CalendarEvent;
 import GuestStatus = GoogleAppsScript.Calendar.GuestStatus;
 import IMember, {IRange, ISchedule} from "./iMember";
+import {copyDate} from "../utils/dateUtils";
 
 export default class MemberImpl implements IMember {
     _id: string;
@@ -18,18 +19,20 @@ export default class MemberImpl implements IMember {
     fetchSchedules(): Array<ISchedule> {
         const schedules: Array<ISchedule> = [];
         const calendar: Calendar = CalendarApp.getCalendarById(this._id);
-        const movePoint: Date = this._copyDate(this.startDate);
+        const movePoint: Date = copyDate(this.startDate);
+        // TODO: parallels
         while (movePoint.getTime() <= this.endDate.getTime()) {
+            // TODO: parallels
             calendar.getEventsForDay(movePoint).forEach((event: CalendarEvent) => {
                 const title: string = event.getTitle();
-                const startDate: Date = this._copyDate(event.getStartTime());
-                const endDate: Date = this._copyDate(event.getEndTime());
+                const startDate: Date = copyDate(event.getStartTime());
+                const endDate: Date = copyDate(event.getEndTime());
+                // Note: If you are OWNER and not attend the events, status is OWNER.
                 const status: GuestStatus = event.getMyStatus();
                 const ignore: boolean = this.ignore.test(title);
                 const allDay: boolean = event.isAllDayEvent();
+                // Note: Google Apps Script can't enum.
                 const statusStr: string = status.toString();
-                // Note: If you are OWNER and not attend the events, status is OWNER.
-                // Note: Google Apps Script can't enum ?
                 const noNeedCalcAssignMinute = statusStr === 'NO' || ignore || allDay;
                 const originalAssignMinute = this._calcAssignMinute(startDate, endDate, []);
 
@@ -66,7 +69,7 @@ export default class MemberImpl implements IMember {
      */
     _calcAssignMinute(start: Date, end: Date, cut: Array<IRange>): number {
         let calculatedAssignMinute = 0;
-        const movePoint: Date = this._copyDate(start);
+        const movePoint: Date = copyDate(start);
         while (movePoint.getTime() < end.getTime()) {
             movePoint.setTime(movePoint.getTime() + 1);
             const inCutTime = cut.some((range: IRange) => {
@@ -80,8 +83,4 @@ export default class MemberImpl implements IMember {
         }
         return calculatedAssignMinute;
     }
-
-    _copyDate(d: Date | GoogleAppsScript.Base.Date): Date {
-        return new Date(d.getTime());
-    };
 }
