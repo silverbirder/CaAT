@@ -230,9 +230,36 @@ function sampleGroup() {
         }
     ];
     group.members = members;
-    group.startDate = new Date('2020-01-18T00:00:00');
-    group.endDate = new Date('2020-01-18T23:59:59');
+    group.startDate = new Date('2020-01-20T00:00:00');
+    group.endDate = new Date('2020-01-24T23:59:59');
     const holidays = group.fetchHolidays();
+/*
+holidays:
+[
+  {
+    "all": true,
+    "member": [
+      "alice@gmail.com",
+      "bob@gmail.com"
+    ],
+    "am": false,
+    "title": "Holiday Alice Bob",
+    "pm": false,
+    "day": "Tue Jan 21 00:00:00 GMT+ 09:00 2020"
+  },
+  {
+    "all": false,
+    "member": [
+      "bob@gmail.com"
+    ],
+    "am": true,
+    "title": "Morning Break Bob",
+    "pm": false,
+    "day": "Thu Jan 23 00:00:00 GMT+ 09:00 2020"
+  }
+]
+*/
+}
 ```
 Below is the API ID of Google Apps Script Library.
 ```
