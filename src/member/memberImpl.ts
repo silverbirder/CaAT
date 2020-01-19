@@ -19,44 +19,38 @@ export default class MemberImpl implements IMember {
     fetchSchedules(): Array<ISchedule> {
         const schedules: Array<ISchedule> = [];
         const calendar: Calendar = CalendarApp.getCalendarById(this._id);
-        const movePoint: Date = copyDate(this.startDate);
-        // TODO: parallels
-        while (movePoint.getTime() <= this.endDate.getTime()) {
-            // TODO: parallels
-            calendar.getEventsForDay(movePoint).forEach((event: CalendarEvent) => {
-                const title: string = event.getTitle();
-                const startDate: Date = copyDate(event.getStartTime());
-                const endDate: Date = copyDate(event.getEndTime());
-                // Note: If you are OWNER and not attend the events, status is OWNER.
-                const status: GuestStatus = event.getMyStatus();
-                const ignore: boolean = this.ignore.test(title);
-                const allDay: boolean = event.isAllDayEvent();
-                // Note: Google Apps Script can't enum.
-                const statusStr: string = status.toString();
-                const noNeedCalcAssignMinute = statusStr === 'NO' || ignore || allDay;
-                const originalAssignMinute = this._calcAssignMinute(startDate, endDate, []);
+        calendar.getEvents(this.startDate, this.endDate).forEach((event: CalendarEvent) => {
+            const title: string = event.getTitle();
+            const startDate: Date = copyDate(event.getStartTime());
+            const endDate: Date = copyDate(event.getEndTime());
+            // Note: If you are OWNER and not attend the events, status is OWNER.
+            const status: GuestStatus = event.getMyStatus();
+            const ignore: boolean = this.ignore.test(title);
+            const allDay: boolean = event.isAllDayEvent();
+            // Note: Google Apps Script can't enum.
+            const statusStr: string = status.toString();
+            const noNeedCalcAssignMinute = statusStr === 'NO' || ignore || allDay;
+            const originalAssignMinute = this._calcAssignMinute(startDate, endDate, []);
 
-                let assignMinute: number = 0;
-                let cut: boolean = false;
-                if (!noNeedCalcAssignMinute) {
-                    assignMinute = this._calcAssignMinute(startDate, endDate, this.cutTimeRange);
-                    cut = originalAssignMinute !== assignMinute;
-                }
-                schedules.push({
-                    status: statusStr,
-                    ignore: ignore,
-                    allDay: allDay,
-                    cut: cut,
-                    start: startDate,
-                    end: endDate,
-                    assignMinute: assignMinute,
-                    originalAssignMinute: originalAssignMinute,
-                    title: event.getTitle(),
-                    description: event.getDescription(),
-                });
+            let assignMinute: number = 0;
+            let cut: boolean = false;
+            if (!noNeedCalcAssignMinute) {
+                assignMinute = this._calcAssignMinute(startDate, endDate, this.cutTimeRange);
+                cut = originalAssignMinute !== assignMinute;
+            }
+            schedules.push({
+                status: statusStr,
+                ignore: ignore,
+                allDay: allDay,
+                cut: cut,
+                start: startDate,
+                end: endDate,
+                assignMinute: assignMinute,
+                originalAssignMinute: originalAssignMinute,
+                title: event.getTitle(),
+                description: event.getDescription(),
             });
-            movePoint.setDate(movePoint.getDate() + 1);
-        }
+        });
         return schedules;
     }
 
