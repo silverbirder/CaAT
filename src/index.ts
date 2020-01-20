@@ -7,3 +7,6 @@ declare const global: {
 
 global.Group = GroupImpl;
 global.Member = MemberImpl;
+
+export * from "./member/memberImpl";
+export * from "./group/groupImpl";
