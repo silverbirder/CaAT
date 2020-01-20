@@ -6,11 +6,11 @@ import {copyDate} from "../utils/dateUtils";
 
 export default class MemberImpl implements IMember {
     _id: string;
-    everyMinutes: number;
-    ignore: RegExp;
-    startDate: Date;
-    endDate: Date;
-    cutTimeRange: Array<IRange>;
+    everyMinutes: number = 15;
+    ignore: RegExp = new RegExp('');
+    startDate: Date = new Date();
+    endDate: Date = new Date();
+    cutTimeRange: Array<IRange> = [];
 
     constructor(id: string) {
         this._id = id;

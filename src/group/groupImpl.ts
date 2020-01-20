@@ -6,9 +6,9 @@ import IGroup, {IGroupMember, IHoliday, IHolidayWords} from "./iGroup";
 
 export default class GroupImpl implements IGroup {
     _id: string;
-    startDate: Date;
-    endDate: Date;
-    members: Array<IGroupMember>;
+    startDate: Date = new Date();
+    endDate: Date = new Date();
+    members: Array<IGroupMember> = [];
     holidayWords: IHolidayWords;
 
     constructor(id: string) {
@@ -16,9 +16,9 @@ export default class GroupImpl implements IGroup {
 
         // Note: To be able to access the second property.
         this.holidayWords = {
-            morning: undefined,
-            afternoon: undefined,
-            all: undefined,
+            morning: new RegExp(''),
+            afternoon: new RegExp(''),
+            all: new RegExp(''),
         };
     }
 
