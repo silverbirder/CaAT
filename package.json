@@ -18,7 +18,14 @@
     "type": "git",
     "url": "git+https://github.com/Silver-birder/CaAT.git"
   },
-  "author": "silverbirder",
+  "keywords": [
+    "Google Apps Script",
+    "Typescript",
+    "Google Calendar",
+    "Calculate time",
+    "Clasp"
+  ],
+  "author": "silverbirder <silverbirder@gmail.com> (https://silver-birder.github.io)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Silver-birder/CaAT/issues"

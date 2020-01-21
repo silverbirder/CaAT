@@ -1,5 +1,5 @@
 # CaAT
-CaAT is the tools that Calculate the Assigned Time.
+CaAT is the Google Apps Script Library that Calculate the Assigned Time.
 
 ![sample](https://res.cloudinary.com/silverbirder/image/upload/v1579416110/CaAT/sample.png)
 
