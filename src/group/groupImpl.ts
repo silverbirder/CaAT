@@ -6,15 +6,16 @@ import IGroup, {IGroupMember, IHoliday, IHolidayWords} from "./iGroup";
 
 export default class GroupImpl implements IGroup {
     _id: string;
-    startDate: Date = new Date();
-    endDate: Date = new Date();
-    members: Array<IGroupMember> = [];
+    startDate: Date;
+    endDate: Date;
+    members: Array<IGroupMember>;
     holidayWords: IHolidayWords;
 
     constructor(id: string) {
         this._id = id;
-
-        // Note: To be able to access the second property.
+        this.startDate = new Date();
+        this.endDate = new Date();
+        this.members = [];
         this.holidayWords = {
             morning: new RegExp(''),
             afternoon: new RegExp(''),
