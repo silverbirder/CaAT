@@ -5,14 +5,14 @@ import IGroup, {IGroupMember, IHoliday, IHolidayWords} from "./iGroup";
 
 
 export default class GroupImpl implements IGroup {
-    _id: string;
+    id: string;
     startDate: Date;
     endDate: Date;
     members: Array<IGroupMember>;
     holidayWords: IHolidayWords;
 
     constructor(id: string) {
-        this._id = id;
+        this.id = id;
         this.startDate = new Date();
         this.endDate = new Date();
         this.members = [];
@@ -25,7 +25,7 @@ export default class GroupImpl implements IGroup {
 
     fetchHolidays(): Array<IHoliday> {
         const holidays: Array<IHoliday> = [];
-        const calendar: Calendar = CalendarApp.getCalendarById(this._id);
+        const calendar: Calendar = CalendarApp.getCalendarById(this.id);
         calendar.getEvents(this.startDate, this.endDate).forEach((event: CalendarEvent) => {
             const allDay: boolean = event.isAllDayEvent();
             if (!allDay) {

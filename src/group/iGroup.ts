@@ -19,6 +19,7 @@ export interface IHoliday {
 }
 
 export default interface IGroup {
+    id: string;
     startDate: Date;
     endDate: Date;
     members: Array<IGroupMember>;

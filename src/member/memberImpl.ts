@@ -5,7 +5,7 @@ import IMember, {IRange, ISchedule} from "./iMember";
 import {copyDate} from "../utils/dateUtils";
 
 export default class MemberImpl implements IMember {
-    _id: string;
+    id: string;
     everyMinutes: number;
     ignore: RegExp;
     startDate: Date;
@@ -13,7 +13,7 @@ export default class MemberImpl implements IMember {
     cutTimeRange: Array<IRange> ;
 
     constructor(id: string) {
-        this._id = id;
+        this.id = id;
         this.everyMinutes = 15;
         this.ignore = new RegExp('');
         this.startDate = new Date();
@@ -23,7 +23,7 @@ export default class MemberImpl implements IMember {
 
     fetchSchedules(): Array<ISchedule> {
         const schedules: Array<ISchedule> = [];
-        const calendar: Calendar = CalendarApp.getCalendarById(this._id);
+        const calendar: Calendar = CalendarApp.getCalendarById(this.id);
         calendar.getEvents(this.startDate, this.endDate).forEach((event: CalendarEvent) => {
             const title: string = event.getTitle();
             const startDate: Date = copyDate(event.getStartTime());
