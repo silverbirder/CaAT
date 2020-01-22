@@ -1,5 +1,5 @@
 # CaAT
-CaAT is the Google Apps Script Library that Calculate the Assigned Time.
+CaAT is the Google Apps Script Library that Calculate the Assigned Time in Google Calendar.
 
 ![sample](https://res.cloudinary.com/silverbirder/image/upload/v1579416110/CaAT/sample.png)
 
@@ -17,7 +17,7 @@ And Bob has a morning break on the 23rd.
 // sampleMember.gs
 function getMemberSchedules() {
     const member = new CaAT.MemberImpl('bob@gmail.com');
-    member.ignore = new RegExp('Concentration Time|Morning MTG', 'i');
+    member.ignore = new RegExp('Concentration', 'i');
     member.everyMinutes = 15;
     member.cutTimeRange = [
       // Lunch
@@ -57,7 +57,17 @@ function getMemberSchedules() {
     group.startDate = new Date('2020-01-20T00:00:00');
     group.endDate = new Date('2020-01-24T23:59:59');
     const holidays = group.fetchHolidays();
-    // => Bob has a morning break on the 23rd.
+    /*
+    {
+      "member": [
+        "bob@gmail.com"
+      ],
+      "day": "Thu Jan 23 00:00:00 GMT+ 09:00 2020"
+      "title": "Morning Break Bob",
+      "am": true,
+      "pm": false,
+      "all": false,
+    } */
 }
 ```
 
