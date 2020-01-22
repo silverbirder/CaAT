@@ -1,36 +1,35 @@
 import Calendar = GoogleAppsScript.Calendar.Calendar;
 import CalendarEvent = GoogleAppsScript.Calendar.CalendarEvent;
 import GuestStatus = GoogleAppsScript.Calendar.GuestStatus;
-import IMember, {IRange, ISchedule} from "./iMember";
+import IMember, {IMemberOption, IRange, ISchedule} from "./iMember";
 import {copyDate} from "../utils/dateUtils";
 
 export default class MemberImpl implements IMember {
     id: string;
-    everyMinutes: number;
-    ignore: RegExp;
-    startDate: Date;
-    endDate: Date;
-    cutTimeRange: Array<IRange> ;
+    option: IMemberOption;
 
-    constructor(id: string) {
+    constructor(id: string, option?: IMemberOption) {
         this.id = id;
-        this.everyMinutes = 15;
-        this.ignore = new RegExp('');
-        this.startDate = new Date();
-        this.endDate = new Date();
-        this.cutTimeRange = [];
+        const defaultOption: IMemberOption = {
+            everyMinutes: 15,
+            ignore: new RegExp(''),
+            startDate: new Date(),
+            endDate: new Date(),
+            cutTimeRange: [],
+        };
+        this.option = option || defaultOption;
     }
 
     fetchSchedules(): Array<ISchedule> {
         const schedules: Array<ISchedule> = [];
         const calendar: Calendar = CalendarApp.getCalendarById(this.id);
-        calendar.getEvents(this.startDate, this.endDate).forEach((event: CalendarEvent) => {
+        calendar.getEvents(this.option.startDate, this.option.endDate).forEach((event: CalendarEvent) => {
             const title: string = event.getTitle();
             const startDate: Date = copyDate(event.getStartTime());
             const endDate: Date = copyDate(event.getEndTime());
             // Note: If you are OWNER and not attend the events, status is OWNER.
             const status: GuestStatus = event.getMyStatus();
-            const ignore: boolean = this.ignore.test(title);
+            const ignore: boolean = this.option.ignore.test(title);
             const allDay: boolean = event.isAllDayEvent();
             // Note: Google Apps Script can't enum.
             const statusStr: string = status.toString();
@@ -40,7 +39,7 @@ export default class MemberImpl implements IMember {
             let assignMinute: number = 0;
             let cut: boolean = false;
             if (!noNeedCalcAssignMinute) {
-                assignMinute = this._calcAssignMinute(startDate, endDate, this.cutTimeRange);
+                assignMinute = this._calcAssignMinute(startDate, endDate, this.option.cutTimeRange);
                 cut = originalAssignMinute !== assignMinute;
             }
             schedules.push({
@@ -76,9 +75,9 @@ export default class MemberImpl implements IMember {
             });
             movePoint.setTime(movePoint.getTime() - 1);
             if (!inCutTime) {
-                calculatedAssignMinute += this.everyMinutes;
+                calculatedAssignMinute += this.option.everyMinutes;
             }
-            movePoint.setMinutes(movePoint.getMinutes() + this.everyMinutes);
+            movePoint.setMinutes(movePoint.getMinutes() + this.option.everyMinutes);
         }
         return calculatedAssignMinute;
     }

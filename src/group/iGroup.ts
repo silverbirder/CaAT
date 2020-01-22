@@ -10,20 +10,24 @@ export interface IGroupMember {
 }
 
 export interface IHoliday {
-    am: boolean,
-    pm: boolean,
+    morning: boolean,
+    afternoon: boolean,
     all: boolean,
-    member: Array<string>,
-    day: Date,
+    inMember: Array<string>,
+    toDate: Date,
     title: string,
 }
 
-export default interface IGroup {
-    id: string;
+export interface IGroupOption {
     startDate: Date;
     endDate: Date;
     members: Array<IGroupMember>;
     holidayWords: IHolidayWords;
+}
+
+export default interface IGroup {
+    id: string;
+    option: IGroupOption;
 
     fetchHolidays(): Array<IHoliday>;
 }

@@ -16,12 +16,17 @@ export interface IRange {
     to: Date,
 }
 
-export default interface IMember {
-    id: string;
+export interface IMemberOption {
     everyMinutes: number;
     ignore: RegExp;
     startDate: Date;
     endDate: Date;
     cutTimeRange: Array<IRange>;
+}
+
+export default interface IMember {
+    id: string;
+    option: IMemberOption;
+
     fetchSchedules(): Array<ISchedule>;
 }
