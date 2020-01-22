@@ -17,6 +17,7 @@ export interface IRange {
 }
 
 export default interface IMember {
+    id: string;
     everyMinutes: number;
     ignore: RegExp;
     startDate: Date;
