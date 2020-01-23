@@ -1,9 +1,9 @@
 import MemberImpl from "./member/memberImpl";
 import IMember from "./member/iMember";
-import {ISchedule, IRange} from "./member/iMember";
+import {ISchedule, IRange, IMemberConfig} from "./member/iMember";
 import GroupImpl from "./group/groupImpl";
 import IGroup from "./group/iGroup";
-import {IHoliday, IHolidayWords, IGroupMember} from "./group/iGroup";
+import {IHoliday, IHolidayWords, IGroupMember, IGroupConfig} from "./group/iGroup";
 
 declare const global: {
     Group: any
@@ -16,10 +16,12 @@ global.Member = MemberImpl;
 export {
     MemberImpl,
     IMember,
+    IMemberConfig,
     ISchedule,
     IRange,
     GroupImpl,
     IGroup,
+    IGroupConfig,
     IHoliday,
     IHolidayWords,
     IGroupMember,

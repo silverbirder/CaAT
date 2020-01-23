@@ -18,7 +18,7 @@ export interface IHoliday {
     title: string,
 }
 
-export interface IGroupOption {
+export interface IGroupConfig {
     startDate: Date;
     endDate: Date;
     members: Array<IGroupMember>;
@@ -27,7 +27,7 @@ export interface IGroupOption {
 
 export default interface IGroup {
     id: string;
-    option: IGroupOption;
+    config: IGroupConfig;
 
     fetchHolidays(): Array<IHoliday>;
 }

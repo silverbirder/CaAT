@@ -16,7 +16,7 @@ export interface IRange {
     to: Date,
 }
 
-export interface IMemberOption {
+export interface IMemberConfig {
     everyMinutes: number;
     ignore: RegExp;
     startDate: Date;
@@ -26,7 +26,7 @@ export interface IMemberOption {
 
 export default interface IMember {
     id: string;
-    option: IMemberOption;
+    config: IMemberConfig;
 
     fetchSchedules(): Array<ISchedule>;
 }

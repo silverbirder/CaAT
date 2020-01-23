@@ -1,35 +1,35 @@
 import Calendar = GoogleAppsScript.Calendar.Calendar;
 import CalendarEvent = GoogleAppsScript.Calendar.CalendarEvent;
 import GuestStatus = GoogleAppsScript.Calendar.GuestStatus;
-import IMember, {IMemberOption, IRange, ISchedule} from "./iMember";
+import IMember, {IMemberConfig, IRange, ISchedule} from "./iMember";
 import {copyDate} from "../utils/dateUtils";
 
 export default class MemberImpl implements IMember {
     id: string;
-    option: IMemberOption;
+    config: IMemberConfig;
 
-    constructor(id: string, option?: IMemberOption) {
+    constructor(id: string, config?: IMemberConfig) {
         this.id = id;
-        const defaultOption: IMemberOption = {
+        const defaultConfig: IMemberConfig = {
             everyMinutes: 15,
             ignore: new RegExp(''),
             startDate: new Date(),
             endDate: new Date(),
             cutTimeRange: [],
         };
-        this.option = option || defaultOption;
+        this.config = config || defaultConfig;
     }
 
     fetchSchedules(): Array<ISchedule> {
         const schedules: Array<ISchedule> = [];
         const calendar: Calendar = CalendarApp.getCalendarById(this.id);
-        calendar.getEvents(this.option.startDate, this.option.endDate).forEach((event: CalendarEvent) => {
+        calendar.getEvents(this.config.startDate, this.config.endDate).forEach((event: CalendarEvent) => {
             const title: string = event.getTitle();
             const startDate: Date = copyDate(event.getStartTime());
             const endDate: Date = copyDate(event.getEndTime());
             // Note: If you are OWNER and not attend the events, status is OWNER.
             const status: GuestStatus = event.getMyStatus();
-            const ignore: boolean = this.option.ignore.test(title);
+            const ignore: boolean = this.config.ignore.test(title);
             const allDay: boolean = event.isAllDayEvent();
             // Note: Google Apps Script can't enum.
             const statusStr: string = status.toString();
@@ -39,7 +39,7 @@ export default class MemberImpl implements IMember {
             let assignMinute: number = 0;
             let cut: boolean = false;
             if (!noNeedCalcAssignMinute) {
-                assignMinute = this._calcAssignMinute(startDate, endDate, this.option.cutTimeRange);
+                assignMinute = this._calcAssignMinute(startDate, endDate, this.config.cutTimeRange);
                 cut = originalAssignMinute !== assignMinute;
             }
             schedules.push({
@@ -75,9 +75,9 @@ export default class MemberImpl implements IMember {
             });
             movePoint.setTime(movePoint.getTime() - 1);
             if (!inCutTime) {
-                calculatedAssignMinute += this.option.everyMinutes;
+                calculatedAssignMinute += this.config.everyMinutes;
             }
-            movePoint.setMinutes(movePoint.getMinutes() + this.option.everyMinutes);
+            movePoint.setMinutes(movePoint.getMinutes() + this.config.everyMinutes);
         }
         return calculatedAssignMinute;
     }

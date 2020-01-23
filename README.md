@@ -16,10 +16,11 @@ And Bob has a morning break on the 23rd.
 ```
 // sampleMember.gs
 function getMemberSchedules() {
-    const member = new CaAT.MemberImpl('bob@gmail.com');
-    member.ignore = new RegExp('Concentration', 'i');
-    member.everyMinutes = 15;
-    member.cutTimeRange = [
+    const id = 'bob@gmail.com';
+    let config = {};
+    config.ignore = new RegExp('Concentration', 'i');
+    config.everyMinutes = 15;
+    config.cutTimeRange = [
       // Lunch
       {from: new Date('2020-01-20T12:00'), to: new Date('2020-01-20T13:00')},
       {from: new Date('2020-01-21T12:00'), to: new Date('2020-01-21T13:00')},
@@ -33,8 +34,9 @@ function getMemberSchedules() {
       {from: new Date('2020-01-23T09:00'), to: new Date('2020-01-23T09:30')},
       {from: new Date('2020-01-24T09:00'), to: new Date('2020-01-24T09:30')},
     ];
-    member.startDate = new Date('2020-01-20T09:00:00');
-    member.endDate = new Date('2020-01-24T18:00:00');
+    config.startDate = new Date('2020-01-20T09:00:00');
+    config.endDate = new Date('2020-01-24T18:00:00');
+    const member = new CaAT.MemberImpl(id, config);
     const schedules  = member.fetchSchedules();
     // => total "assignMinute" is 180 minutes (=3h).
 }
@@ -43,19 +45,23 @@ function getMemberSchedules() {
 ```
 // sampleGroup.gs
 function getMemberSchedules() {
-    const group = new CaAT.GroupImpl('bob@gmail.com');
-    group.holidayWords.all = new RegExp('holiday', 'i');
-    group.holidayWords.morning = new RegExp('morning', 'i');
-    group.holidayWords.afternoon = new RegExp('afternoon', 'i');
+    const id = 'bob@gmail.com';
+    let holidayWords = {}
+    holidayWords.all = new RegExp('holiday', 'i');
+    holidayWords.morning = new RegExp('morning', 'i');
+    holidayWords.afternoon = new RegExp('afternoon', 'i');
     const members = [
          {
             name: 'bob@gmail.com',
             match: new RegExp('bob', 'i')
         }
     ];
-    group.members = members;
-    group.startDate = new Date('2020-01-20T00:00:00');
-    group.endDate = new Date('2020-01-24T23:59:59');
+    let config  = {};
+    config.startDate = new Date('2020-01-20T00:00:00');
+    config.endDate = new Date('2020-01-24T23:59:59');
+    config.members = members;
+    config.holidayWords = holidayWords;
+    const group = new CaAT.GroupImpl(id, config);
     const holidays = group.fetchHolidays();
     /*
     {
