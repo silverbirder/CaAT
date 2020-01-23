@@ -14,12 +14,12 @@ global.Group = GroupImpl;
 global.Member = MemberImpl;
 
 export {
-    MemberImpl,
+    MemberImpl as Member,
     IMember,
     IMemberConfig,
     ISchedule,
     IRange,
-    GroupImpl,
+    GroupImpl as Group,
     IGroup,
     IGroupConfig,
     IHoliday,
