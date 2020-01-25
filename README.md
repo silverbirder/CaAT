@@ -15,7 +15,8 @@ And Bob has a morning break on the 23rd.
 
 # Use By TypeScript
 
-This library is published by npm.
+This library is published by npm.  
+[@silverbirder/caat](https://www.npmjs.com/package/@silverbirder/caat)
 
 ```
 $ npm install @silverbirder/caat
