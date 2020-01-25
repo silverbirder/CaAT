@@ -32,7 +32,7 @@ export default class MemberImpl implements IMember {
             const ignore: boolean = this.config.ignore.test(title);
             const allDay: boolean = event.isAllDayEvent();
             // Note: Google Apps Script can't enum.
-            const statusStr: string = status.toString();
+            const statusStr: string = status === null ? 'MAYBE' : status.toString();
             const noNeedCalcAssignMinute = statusStr === 'NO' || ignore || allDay;
             const originalAssignMinute = this._calcAssignMinute(startDate, endDate, []);
 
