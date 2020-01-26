@@ -1,3 +1,5 @@
+import ICalendar from "../calendar/iCalendar";
+
 export interface ISchedule {
     status: string,
     start: Date,
@@ -27,6 +29,7 @@ export interface IMemberConfig {
 export default interface IMember {
     id: string;
     config: IMemberConfig;
+    calendar: ICalendar;
 
     fetchSchedules(): Array<ISchedule>;
 }
