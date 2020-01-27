@@ -1,15 +1,15 @@
 import GuestStatus = GoogleAppsScript.Calendar.GuestStatus;
 import IMember, {IMemberConfig, IRange, ISchedule} from "./iMember";
 import {copyDate} from "../utils/dateUtils";
-import ICalendar, {CCalendar, CCalendarEvent} from "../calendar/iCalendar";
-import CalendarImpl from "../calendar/calendarImpl";
+import ICalendarApp, {ICalendar, ICalendarEvent} from "../calendar/ICalendarApp";
+import CalendarAppImpl from "../calendar/calendarAppImpl";
 
 export default class MemberImpl implements IMember {
     id: string;
     config: IMemberConfig;
-    calendar: ICalendar;
+    calendarApp: ICalendarApp;
 
-    constructor(id: string, config?: IMemberConfig, calendar?: ICalendar) {
+    constructor(id: string, config?: IMemberConfig, calendar?: ICalendarApp) {
         this.id = id;
         const defaultConfig: IMemberConfig = {
             everyMinutes: 15,
@@ -19,14 +19,14 @@ export default class MemberImpl implements IMember {
             cutTimeRange: [],
         };
         this.config = config || defaultConfig;
-        this.calendar = calendar || new CalendarImpl();
+        this.calendarApp = calendar || new CalendarAppImpl();
     }
 
     fetchSchedules(): Array<ISchedule> {
         const schedules: Array<ISchedule> = [];
-        const calendar: CCalendar = this.calendar.getCalendarById(this.id);
+        const calendar: ICalendar = this.calendarApp.getCalendarById(this.id);
         const workingTimeRange: Array<IRange> = [];
-        calendar.getEvents(this.config.startDate, this.config.endDate).forEach((event: CCalendarEvent) => {
+        calendar.getEvents(this.config.startDate, this.config.endDate).forEach((event: ICalendarEvent) => {
             const title: string = event.getTitle();
             const startDate: Date = copyDate(event.getStartTime());
             const endDate: Date = copyDate(event.getEndTime());
