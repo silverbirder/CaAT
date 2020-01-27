@@ -50,8 +50,9 @@ export default class GroupImpl implements IGroup {
                 all: all,
                 title: title,
                 inMember: members,
-                toDate: copyDate(event.getStartTime())
-            })
+                start: copyDate(event.getStartTime()),
+                end: copyDate(event.getEndTime()),
+            });
         });
         return holidays;
     }
