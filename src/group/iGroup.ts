@@ -14,8 +14,7 @@ export interface IHoliday {
     afternoon: boolean,
     all: boolean,
     inMember: Array<string>,
-    start: Date,
-    end: Date,
+    toDate: Date,
     title: string,
 }
 

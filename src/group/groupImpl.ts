@@ -44,15 +44,20 @@ export default class GroupImpl implements IGroup {
             }, title).map((member: IGroupMember) => {
                 return member.name;
             });
-            holidays.push({
-                morning: am,
-                afternoon: pm,
-                all: all,
-                title: title,
-                inMember: members,
-                start: copyDate(event.getStartTime()),
-                end: copyDate(event.getEndTime()),
-            });
+            const movePoint: Date = copyDate(event.getStartTime());
+            while (movePoint.getTime() < event.getEndTime().getTime()) {
+                if(movePoint.getTime() <= this.config.endDate.getTime() && movePoint.getTime() >= this.config.startDate.getTime()) {
+                    holidays.push({
+                        morning: am,
+                        afternoon: pm,
+                        all: all,
+                        title: title,
+                        inMember: members,
+                        toDate: copyDate(movePoint),
+                    });
+                }
+                movePoint.setDate(movePoint.getDate() + 1);
+            }
         });
         return holidays;
     }
