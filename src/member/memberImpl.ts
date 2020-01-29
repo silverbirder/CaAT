@@ -13,7 +13,7 @@ export default class MemberImpl implements IMember {
         this.id = id;
         const defaultConfig: IMemberConfig = {
             everyMinutes: 15,
-            ignore: new RegExp(''),
+            ignore: new RegExp('(?!)'),
             startDate: new Date(),
             endDate: new Date(),
             cutTimeRange: [],

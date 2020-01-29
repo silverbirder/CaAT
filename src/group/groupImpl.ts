@@ -11,9 +11,9 @@ export default class GroupImpl implements IGroup {
     constructor(id: string, config: IGroupConfig) {
         this.id = id;
         const defaultHolidayWords: IHolidayWords = {
-            morning: new RegExp(''),
-            afternoon: new RegExp(''),
-            all: new RegExp(''),
+            morning: new RegExp('(?!)'),
+            afternoon: new RegExp('(?!)'),
+            all: new RegExp('(?!)'),
         };
         const defaultConfig: IGroupConfig = {
             startDate: new Date(),
