@@ -1,9 +1,28 @@
+export default interface ICalendarApp {
+    calendars?: Array<ICalendarSet>;
+
+    getCalendarById(id: string): ICalendar;
+}
+
+export interface ICalendarSet {
+    id: number,
+    calendar: ICalendar
+}
+
 export interface ICalendar {
-    _ac?: Array<ICalendarEvent>;
+    calendarEvent?: Array<ICalendarEvent>
+
     getEvents(startTime: Date, endTime: Date): Array<ICalendarEvent>;
 }
 
 export interface ICalendarEvent {
+    title?: string,
+    startTime?: any,
+    endTime?: any,
+    myStatus?: any,
+    description?: string,
+    isAllDay?: boolean,
+
     getTitle(): string;
 
     getStartTime(): any;
@@ -15,8 +34,4 @@ export interface ICalendarEvent {
     getDescription(): string;
 
     isAllDayEvent(): boolean;
-}
-
-export default interface ICalendarApp {
-    getCalendarById(id: string): ICalendar;
 }
