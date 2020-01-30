@@ -1,3 +1,5 @@
+import ICalendarApp from "../calendar/ICalendarApp";
+
 export interface IHolidayWords {
     morning: RegExp,
     afternoon: RegExp,
@@ -28,6 +30,7 @@ export interface IGroupConfig {
 export default interface IGroup {
     id: string;
     config: IGroupConfig;
+    calendarApp: ICalendarApp;
 
     fetchHolidays(): Array<IHoliday>;
 }

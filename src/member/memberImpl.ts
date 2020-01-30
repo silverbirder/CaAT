@@ -9,7 +9,7 @@ export default class MemberImpl implements IMember {
     config: IMemberConfig;
     calendarApp: ICalendarApp;
 
-    constructor(id: string, config?: IMemberConfig, calendar?: ICalendarApp) {
+    constructor(id: string, config?: IMemberConfig, calendarApp?: ICalendarApp) {
         this.id = id;
         const defaultConfig: IMemberConfig = {
             everyMinutes: 15,
@@ -19,7 +19,7 @@ export default class MemberImpl implements IMember {
             cutTimeRange: [],
         };
         this.config = config || defaultConfig;
-        this.calendarApp = calendar || new CalendarAppImpl();
+        this.calendarApp = calendarApp || new CalendarAppImpl();
     }
 
     fetchSchedules(): Array<ISchedule> {

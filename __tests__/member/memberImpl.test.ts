@@ -1,7 +1,9 @@
 import IMember, {IMemberConfig, ISchedule} from "../../src/member/iMember";
 import MemberImpl from "../../src/member/memberImpl";
-import CalendarAppMock, {CalendarEventMock, CalendarMock} from "../../src/calendar/calendarAppMock";
-import {ICalendar, ICalendarEvent, ICalendarSet} from "../../src/calendar/ICalendarApp";
+import CalendarAppMock from "../../src/calendar/calendarAppMock";
+import {ICalendarEvent} from "../../src/calendar/ICalendarApp";
+// @ts-ignore TS6059
+import {generateDefaultCalendarEvents, generateDefaultCalendars} from "../generator";
 
 function setUpMember(): IMember {
     const member: IMember = new MemberImpl('user@gmail.com');
@@ -15,26 +17,6 @@ function setUpMember(): IMember {
     member.config = config;
     member.calendarApp = new CalendarAppMock();
     return member
-}
-
-function generateDefaultCalendarEvents(ranges: Array<{ start: Date, end: Date }>): Array<ICalendarEvent> {
-    return ranges.map((range: { start: Date, end: Date }) => {
-        const calendarEvent: ICalendarEvent = new CalendarEventMock();
-        calendarEvent.description = 'description';
-        calendarEvent.startTime = range.start;
-        calendarEvent.endTime = range.end;
-        calendarEvent.isAllDay = false;
-        calendarEvent.myStatus = 'INVITE';
-        calendarEvent.title = 'title';
-        return calendarEvent;
-    });
-}
-
-function generateDefaultCalendars(calendarEvents: Array<ICalendarEvent>): Array<ICalendarSet> {
-    const calendar: ICalendar = new CalendarMock();
-    calendar.calendarEvent = calendarEvents;
-    const calendarSet: ICalendarSet = {id: 1, calendar: calendar};
-    return [calendarSet];
 }
 
 function sumSchedulesMinutes(schedules: Array<ISchedule>): number {
@@ -261,5 +243,5 @@ describe('Class: MemberImpl', () => {
                 expect(totalMinutes).toBe(60);
             });
         });
-    })
+    });
 });
