@@ -6,7 +6,7 @@ import {ICalendarEvent} from "../../src/calendar/ICalendarApp";
 import {generateDefaultCalendarEvents, generateDefaultCalendars} from "../generator";
 
 function setUpMember(): IMember {
-    const member: IMember = new MemberImpl('user@gmail.com');
+    const member: IMember = new MemberImpl('user@mail.com');
     const config: IMemberConfig = {
         everyMinutes: 15,
         ignore: new RegExp('(?!)'),
@@ -187,8 +187,8 @@ describe('Class: MemberImpl', () => {
                 const calendarEvents: Array<ICalendarEvent> = generateDefaultCalendarEvents([{
                     start: new Date('2020-01-01T00:00:00'),
                     end: new Date('2020-01-02T00:00:00'),
+                    allDay: true,
                 }]);
-                calendarEvents[0].isAllDay = true;
                 member.calendarApp.calendars = generateDefaultCalendars(calendarEvents);
 
                 // Act
