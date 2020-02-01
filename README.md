@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/Silver-birder/CaAT/badge.svg?branch=master)](https://coveralls.io/github/Silver-birder/CaAT?branch=master)
+
 # CaAT
 CaAT is the Google Apps Script Library that Calculate the Assigned Time in Google Calendar.
 
