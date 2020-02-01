@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/npm/l/@silverbirder/caat.svg)](https://opensource.org/licenses/MIT)
+[![npm](https://img.shields.io/npm/dt/@silverbirder/caat.svg)](https://www.npmjs.com/package/@silverbirder/caat)
 [![Coverage Status](https://coveralls.io/repos/github/Silver-birder/CaAT/badge.svg?branch=master)](https://coveralls.io/github/Silver-birder/CaAT?branch=master)
 
 # CaAT
