@@ -5,7 +5,7 @@
 [![npm bundle size](https://img.shields.io/bundlephobia/min/@silverbirder/caat)](https://www.npmjs.com/package/@silverbirder/caat)
 [![github action](https://img.shields.io/github/workflow/status/Silver-birder/CaAT/main)](https://github.com/Silver-birder/CaAT/actions)
 [![Coverage Status](https://coveralls.io/repos/github/Silver-birder/CaAT/badge.svg?branch=master)](https://coveralls.io/github/Silver-birder/CaAT?branch=master)
-[![twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fsilver_birder)](https://twitter.com/silver_birder)
+[![twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fsilverbirder)](https://twitter.com/silverbirder)
 
 # CaAT
 CaAT is the Google Apps Script Library that Calculate the Assigned Time in Google Calendar.
